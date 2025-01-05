@@ -36,11 +36,11 @@ public class User {
     @Column(name = "id", unique = true)
     private Long id ;
 
-    @Column(name = "name", length = 100, nullable = false, unique = true)
+    @Column(name = "username", length = 100, nullable = false, unique = true)
     @NotNull(groups = CreateUser.class)
     @NotEmpty(groups = CreateUser.class)
     @Size(groups = CreateUser.class, min = 2, max = 100)
-    private String name;
+    private String username;
 
     @JsonProperty(access = Access.WRITE_ONLY)
     @Column(name = "password", length = 60, nullable = false)
@@ -58,9 +58,9 @@ public class User {
         
     }
     
-    public User(Long id, String name, String password){
+    public User(Long id, String username, String password){
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.password = password;
     }
 
@@ -83,11 +83,11 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String username) {
+        this.username = username;
     }
     
     public Long getId() {
@@ -112,7 +112,7 @@ public class User {
                 return false;
             if (!this.id.equals(other.id))
                 return false;
-        return Objects.equals(this.id, other.id) && Objects.equals(this.name, other.name)
+        return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username)
             && Objects.equals(this.password, other.password);
         
     }
