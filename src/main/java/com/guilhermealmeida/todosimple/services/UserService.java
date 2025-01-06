@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.guilhermealmeida.todosimple.models.User;
-import com.guilhermealmeida.todosimple.repositories.TaskRepository;
 import com.guilhermealmeida.todosimple.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -17,9 +16,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private TaskRepository taskRepository;
-
+    @Transactional
     public User findById(Long id){
         Optional<User> user = this.userRepository.findById(id);
         return user.orElseThrow(() -> new RuntimeException(
@@ -31,7 +28,6 @@ public class UserService {
     public User create(User user){
         user.setId(null);
         user = this.userRepository.save(user);
-        this.taskRepository.saveAll(user.getTasks());
         return user;
     }
     
