@@ -1,6 +1,7 @@
 package com.guilhermealmeida.todosimple.controllers;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -34,6 +37,12 @@ public class UserController {
     @Autowired
     private UserService userService;
     
+    @GetMapping("")
+    public ResponseEntity findAll() {
+        List userList = this.userService.findAll();
+        return ResponseEntity.ok().body(userList);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> findById(@PathVariable Long id){
         User user = this.userService.findById(id);

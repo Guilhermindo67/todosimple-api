@@ -1,5 +1,6 @@
 package com.guilhermealmeida.todosimple.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,16 @@ public class UserService {
     
     @Autowired
     private UserRepository userRepository;
+
+    @Transactional
+    public List<User> findAll(){
+        List<User> userList = this.userRepository.findAll();
+        try {
+            return userList;
+        } catch (Exception e) {
+            throw new RuntimeException("Ocorreu um erro ao buscar os usuários: "+ e.getMessage());
+        }
+    }
 
     @Transactional
     public User findById(Long id){
@@ -47,5 +58,7 @@ public class UserService {
             throw new RuntimeException("Não é possível excluir pois a entidades relacionadas !");
         }
     }
+
+
 
 }
