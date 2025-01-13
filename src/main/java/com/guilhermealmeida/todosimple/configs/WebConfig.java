@@ -7,10 +7,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-public class WebConfig implements WebMvcConfigurer{
-    
-    public void addCorsMapping(CorsRegistry registry){
-        registry.addMapping("/**");
+public class WebConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(@SuppressWarnings("null") CorsRegistry registry) {
+        registry.addMapping("/**") // Permite todas as rotas
+                .allowedOrigins("http://127.0.0.1:5500") // Permite apenas esta origem
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Permite métodos HTTP específicos
+                .allowedHeaders("*") // Permite todos os cabeçalhos
+                .allowCredentials(true); // Permite envio de credenciais, se necessário
     }
 }
-//Criado por Guilherme Almeida
